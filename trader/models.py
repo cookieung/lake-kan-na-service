@@ -1,5 +1,5 @@
-from django.contrib.postgres.fields import IntegerRangeField
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 GENDER_CHOICES = (
     ('M', 'male'),
@@ -60,8 +60,8 @@ class Item(models.Model):
 
 class Trading(models.Model):
     openDate = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey(Trader,on_delete=models.CASCADE,)
-    receiver = models.ForeignKey(Trader,on_delete=models.CASCADE,)
+    owner = models.ForeignKey(Trader,on_delete=models.CASCADE,related_name='trading')
+    receiver = models.ForeignKey(Trader,on_delete=models.CASCADE,related_name='receiving')
     executeDate = models.DateTimeField(auto_now_add=False)
     tags = models.ForeignKey(Tag,on_delete=models.CASCADE,)
     deleted = models.BooleanField(default=False)
@@ -84,7 +84,7 @@ class Review(models.Model):
     writer = models.ForeignKey(Trader,on_delete=models.CASCADE,)
     trade_id = models.ForeignKey(Trading,on_delete=models.CASCADE,)
     comment = models.CharField(max_length=100, blank=True, default='')
-    rate = IntegerRangeField(min_value=1, max_value=5)
+    rate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     deleted = models.BooleanField(default=False)
 
     class Meta:
