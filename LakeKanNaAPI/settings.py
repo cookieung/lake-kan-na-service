@@ -25,7 +25,7 @@ SECRET_KEY = 'dl$+zxp2kvr0tn99q))fcn!6^dk%nuj1k(rtn=e@0tm)pzl8^)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['35.187.251.130', 'localhost', 'api.cookieung.me']
+ALLOWED_HOSTS = ['35.186.156.53', 'localhost', 'api.cookieung.me']
 
 
 # Application definition
