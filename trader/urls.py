@@ -7,6 +7,9 @@ urlpatterns = [
     url(r'^traders/$', views.TraderList.as_view()),
     url(r'^traders/(?P<pk>[0-9]+)/$', views.TraderDetail.as_view()),
 
+    url(r'^users/$', views.UserList.as_view()),
+    url(r'^users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
+
     url(r'^trading/$', views.TradingList.as_view()),
     url(r'^trading/(?P<pk>[0-9]+)/$', views.TradingDetail.as_view()),
 

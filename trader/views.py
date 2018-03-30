@@ -1,5 +1,5 @@
-from trader.models import Trader,Tag,Basket,Image,Inventory,Item,Review,Trading
-from trader.serializers import TraderSerializer,TagSerializer,BasketSerializer,ImageSerializer,InventorySerializer,ItemSerializer,ReviewSerializer,TradingSerializer
+from trader.models import Trader,User,Tag,Basket,Image,Inventory,Item,Review,Trading
+from trader.serializers import TraderSerializer,UserSerializer,TagSerializer,BasketSerializer,ImageSerializer,InventorySerializer,ItemSerializer,ReviewSerializer,TradingSerializer
 from rest_framework import generics
 
 class TraderList(generics.ListCreateAPIView):
@@ -9,6 +9,15 @@ class TraderList(generics.ListCreateAPIView):
 class TraderDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Trader.objects.all()
     serializer_class = TraderSerializer
+
+class UserList(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
 
 
 class TradingList(generics.ListCreateAPIView):

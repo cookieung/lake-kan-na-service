@@ -1,10 +1,16 @@
-from .models import Trader,Tag,Basket,Image,Inventory,Item,Review,Trading
+from .models import Trader,User,Tag,Basket,Image,Inventory,Item,Review,Trading
 from rest_framework import serializers
 
 class TraderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trader
         fields = ('id','id_number','name','lname', 'gender','birthdate','facebook','lineid','deleted')
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id','trader_id','username','password', 'deleted')
+
 
 
 class InventorySerializer(serializers.ModelSerializer):

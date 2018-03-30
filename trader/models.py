@@ -11,7 +11,6 @@ ITEM_STATUS = (
     ('I', 'invisible'),
 )
 
-
 class Trader(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=100, blank=True, default='')
@@ -26,10 +25,20 @@ class Trader(models.Model):
     class Meta:
         ordering = ('created',)
 
+class User(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    trader_id = models.ForeignKey(Trader,on_delete=models.CASCADE,)
+    username = models.CharField(max_length=100, blank=True, default='')
+    password = models.CharField(max_length=100, blank=True, default='')
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ('created',)
+
+
 class Inventory(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    name = models.CharField(max_length=100, blank=True, default='')
-    owner = models.ForeignKey(Trader,on_delete=models.CASCADE,)
+    owner = models.ForeignKey(User,on_delete=models.CASCADE,)
     deleted = models.BooleanField(default=False)
 
     class Meta:
@@ -60,8 +69,8 @@ class Item(models.Model):
 
 class Trading(models.Model):
     openDate = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey(Trader,on_delete=models.CASCADE,related_name='trading')
-    receiver = models.ForeignKey(Trader,on_delete=models.CASCADE,related_name='receiving')
+    owner = models.ForeignKey(User,on_delete=models.CASCADE,related_name='trading')
+    receiver = models.ForeignKey(User,on_delete=models.CASCADE,related_name='receiving')
     executeDate = models.DateTimeField(auto_now_add=False)
     tags = models.ForeignKey(Tag,on_delete=models.CASCADE,)
     deleted = models.BooleanField(default=False)
@@ -71,7 +80,7 @@ class Trading(models.Model):
 
 class Basket(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey(Trader,on_delete=models.CASCADE,)
+    owner = models.ForeignKey(User,on_delete=models.CASCADE,)
     trade_id = models.ForeignKey(Trading,on_delete=models.CASCADE,)
     items = models.ForeignKey(Item,on_delete=models.CASCADE,)
     deleted = models.BooleanField(default=False)
@@ -81,7 +90,7 @@ class Basket(models.Model):
 
 class Review(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    writer = models.ForeignKey(Trader,on_delete=models.CASCADE,)
+    writer = models.ForeignKey(User,on_delete=models.CASCADE,)
     trade_id = models.ForeignKey(Trading,on_delete=models.CASCADE,)
     comment = models.CharField(max_length=100, blank=True, default='')
     rate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
