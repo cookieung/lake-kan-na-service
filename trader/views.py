@@ -6,6 +6,7 @@ class TraderList(generics.ListCreateAPIView):
     queryset = Trader.objects.all()
     serializer_class = TraderSerializer
 
+#For get profile of a trader
 class TraderDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Trader.objects.all()
     serializer_class = TraderSerializer
@@ -13,6 +14,16 @@ class TraderDetail(generics.RetrieveUpdateDestroyAPIView):
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    def get_queryset(self):
+        queryset = User.objects.all()
+        username = self.request.query_params.get('username',None)
+        password = self.request.query_params.get('password',None)
+        if username is not None and password is not None:
+            queryset = queryset.filter(username=username).filter(password=password)
+            return queryset
+        elif username is not None or password is not None:
+            return None
+        return queryset
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
