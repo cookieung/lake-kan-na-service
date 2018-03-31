@@ -161,3 +161,59 @@ class TradingTagsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = TradingTags.objects.all()
     serializer_class = TradingTagsSerializer
 
+
+class ItemOfInventoryList(generics.ListCreateAPIView):
+    queryset = ItemOfInventory.objects.all()
+    serializer_class = ItemOfInventorySerializer
+
+
+class ItemOfInventoryDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ItemOfInventory.objects.all()
+    serializer_class = ItemOfInventorySerializer
+
+
+class ItemOfBasketList(generics.ListCreateAPIView):
+    queryset = ItemOfBasket.objects.all()
+    serializer_class = ItemOfBasketSerializer
+
+
+class ItemOfBasketDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ItemOfBasket.objects.all()
+    serializer_class = ItemOfBasketSerializer
+
+
+class ItemOfInventoryList(generics.ListCreateAPIView):
+    queryset = ItemOfInventory.objects.all()
+    serializer_class = ItemOfInventorySerializer
+
+
+class ItemOfInventoryDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ItemOfInventory.objects.all()
+    serializer_class = ItemOfInventorySerializer
+
+class ImageOfItemList(generics.ListCreateAPIView):
+    queryset = ImageList.objects.all()
+    serializer_class = ImageListSerializer
+
+
+class ImageOfItemDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ImageList.objects.all()
+    serializer_class = ImageListSerializer
+
+class ReviewLogList(generics.ListCreateAPIView):
+    queryset = ReviewLog.objects.all()
+    serializer_class = ReviewLogSerializer
+
+
+class ReviewLogDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ReviewLog.objects.all()
+    serializer_class = ReviewLogSerializer
+
+class VotingList(generics.ListCreateAPIView):
+    queryset = Voting.objects.all()
+    serializer_class = VotingSerializer
+
+
+class VotingDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Voting.objects.all()
+    serializer_class = VotingSerializer
