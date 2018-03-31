@@ -1,4 +1,4 @@
-from .models import ItemTags,TradingTags,Trader,User,Tag,Basket,Image,Inventory,Item,Review,Trading,ItemOfBasket,ItemOfInventory,ImageList,ReviewLog,Voting
+from .models import ItemTags,TradingTags,Trader,User,Tag,Basket,Image,Inventory,Item,Review,Trading,ItemOfBasket,ItemOfInventory,ImageOfItem,ReviewLog,Voting
 from rest_framework import serializers
 
 
@@ -74,7 +74,7 @@ class ItemOfInventorySerializer(serializers.ModelSerializer):
         model = Trader
         fields = ('id','inventory_id','items','deleted')
 
-class ImageListSerializer(serializers.ModelSerializer):
+class ImageOfItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trader
         fields = ('id','item_id','images','deleted')

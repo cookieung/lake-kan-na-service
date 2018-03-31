@@ -1,7 +1,8 @@
-from trader.models import ItemTags,TradingTags,Trader,User,Tag,Basket,Image,Inventory,Item,Review,Trading,ItemOfBasket,ItemOfInventory,ImageList,ReviewLog,Voting
-from trader.serializers import TraderSerializer,UserSerializer,TagSerializer,ItemTagsSerializer,TradingTagsSerializer,BasketSerializer,ImageSerializer,InventorySerializer,ItemSerializer,ReviewSerializer,TradingSerializer,ItemOfBasketSerializer,ItemOfInventorySerializer,ImageListSerializer,ReviewLogSerializer,VotingSerializer
+from trader.models import ItemTags,TradingTags,Trader,User,Tag,Basket,Image,Inventory,Item,Review,Trading,ItemOfBasket,ItemOfInventory,ImageOfItem,ReviewLog,Voting
+from trader.serializers import TraderSerializer,UserSerializer,TagSerializer,ItemTagsSerializer,TradingTagsSerializer,BasketSerializer,ImageSerializer,InventorySerializer,ItemSerializer,ReviewSerializer,TradingSerializer,ItemOfBasketSerializer,ItemOfInventorySerializer,ImageOfItemSerializer,ReviewLogSerializer,VotingSerializer
 from rest_framework import generics
 
+#1
 class TraderList(generics.ListCreateAPIView):
     queryset = Trader.objects.all()
     serializer_class = TraderSerializer
@@ -11,6 +12,7 @@ class TraderDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Trader.objects.all()
     serializer_class = TraderSerializer
 
+#2
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -29,7 +31,7 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-
+#3
 
 class TradingList(generics.ListCreateAPIView):
     queryset = Trading.objects.all()
@@ -51,7 +53,7 @@ class TradingDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Trading.objects.all()
     serializer_class = TradingSerializer
 
-
+#4
 class TagList(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
@@ -60,7 +62,7 @@ class TagDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
-
+#5
 class BasketList(generics.ListCreateAPIView):
     queryset = Basket.objects.all()
     serializer_class = BasketSerializer
@@ -75,7 +77,7 @@ class BasketDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Basket.objects.all()
     serializer_class = BasketSerializer
 
-
+#6
 class ImageList(generics.ListCreateAPIView):
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
@@ -84,7 +86,7 @@ class ImageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
 
-
+#7
 class InventoryList(generics.ListCreateAPIView):
     queryset = Inventory.objects.all()
     serializer_class = InventorySerializer
@@ -99,7 +101,7 @@ class InventoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Inventory.objects.all()
     serializer_class = InventorySerializer
 
-
+#8
 class ReviewList(generics.ListCreateAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
@@ -117,6 +119,7 @@ class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
+#9
 class ItemList(generics.ListCreateAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
@@ -131,7 +134,7 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
 
-
+#10
 class ItemTagsList(generics.ListCreateAPIView):
     queryset = ItemTags.objects.all()
     serializer_class = ItemTagsSerializer
@@ -146,7 +149,7 @@ class ItemTagsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ItemTags.objects.all()
     serializer_class = ItemTagsSerializer
 
-
+#11
 class TradingTagsList(generics.ListCreateAPIView):
     queryset = TradingTags.objects.all()
     serializer_class = TradingTagsSerializer
@@ -161,58 +164,50 @@ class TradingTagsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = TradingTags.objects.all()
     serializer_class = TradingTagsSerializer
 
-
+#12
 class ItemOfInventoryList(generics.ListCreateAPIView):
     queryset = ItemOfInventory.objects.all()
     serializer_class = ItemOfInventorySerializer
-
 
 class ItemOfInventoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ItemOfInventory.objects.all()
     serializer_class = ItemOfInventorySerializer
 
 
+#13
 class ItemOfBasketList(generics.ListCreateAPIView):
     queryset = ItemOfBasket.objects.all()
     serializer_class = ItemOfBasketSerializer
-
 
 class ItemOfBasketDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ItemOfBasket.objects.all()
     serializer_class = ItemOfBasketSerializer
 
 
-class ItemOfInventoryList(generics.ListCreateAPIView):
-    queryset = ItemOfInventory.objects.all()
-    serializer_class = ItemOfInventorySerializer
-
-
-class ItemOfInventoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = ItemOfInventory.objects.all()
-    serializer_class = ItemOfInventorySerializer
-
+#14
 class ImageOfItemList(generics.ListCreateAPIView):
-    queryset = ImageList.objects.all()
-    serializer_class = ImageListSerializer
-
+    queryset = ImageOfItem.objects.all()
+    serializer_class = ImageOfItemSerializer
 
 class ImageOfItemDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = ImageList.objects.all()
-    serializer_class = ImageListSerializer
+    queryset = ImageOfItem.objects.all()
+    serializer_class = ImageOfItemSerializer
 
+
+#15
 class ReviewLogList(generics.ListCreateAPIView):
     queryset = ReviewLog.objects.all()
     serializer_class = ReviewLogSerializer
-
 
 class ReviewLogDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ReviewLog.objects.all()
     serializer_class = ReviewLogSerializer
 
+
+#16
 class VotingList(generics.ListCreateAPIView):
     queryset = Voting.objects.all()
     serializer_class = VotingSerializer
-
 
 class VotingDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Voting.objects.all()

@@ -119,7 +119,7 @@ class ItemOfInventory(models.Model):
     class Meta:
         ordering = ('created',)
 
-class ImageList(models.Model):
+class ImageOfItem(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     item_id = models.ForeignKey(Item,on_delete=models.CASCADE,)
     images = models.ForeignKey(Image,on_delete=models.CASCADE,)
