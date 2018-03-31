@@ -1,5 +1,6 @@
-from .models import ItemTags,TradingTags,Trader,User,Tag,Basket,Image,Inventory,Item,Review,Trading
+from .models import ItemTags,TradingTags,Trader,User,Tag,Basket,Image,Inventory,Item,Review,Trading,ItemOfBasket,ItemOfInventory,ImageList,ReviewLog,Voting
 from rest_framework import serializers
+
 
 class TraderSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,7 +23,7 @@ class InventorySerializer(serializers.ModelSerializer):
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ('id','name','inventory_id','status', 'images','deleted')
+        fields = ('id','name','status','deleted')
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -39,7 +40,7 @@ class ImageSerializer(serializers.ModelSerializer):
 class BasketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Basket
-        fields = ('id','owner','trade_id','items','deleted')
+        fields = ('id','owner','trade_id','deleted')
 
 class TradingSerializer(serializers.ModelSerializer):
     class Meta:
@@ -49,7 +50,7 @@ class TradingSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ('id','writer','trade_id','comment','rate','deleted')
+        fields = ('id','comment','deleted')
 
 class ItemTagsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -62,3 +63,28 @@ class TradingTagsSerializer(serializers.ModelSerializer):
         model = TradingTags
         fields = ('id', 'trading_id', 'tags' ,'deleted')
 
+class ItemOfBasketSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trader
+        fields = ('id','basket_id','items','deleted')
+
+
+class ItemOfInventorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trader
+        fields = ('id','inventory_id','items','deleted')
+
+class ImageListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trader
+        fields = ('id','item_id','images','deleted')
+
+class ReviewLogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trader
+        fields = ('id','writer','trade_id','review_id','deleted')
+
+class VotingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trader
+        fields = ('id','receiver','voter','rate','deleted')
