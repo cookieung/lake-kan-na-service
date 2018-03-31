@@ -70,6 +70,12 @@ class ImageDetail(generics.RetrieveUpdateDestroyAPIView):
 class InventoryList(generics.ListCreateAPIView):
     queryset = Inventory.objects.all()
     serializer_class = InventorySerializer
+    def get_queryset(self):
+        queryset = User.objects.all()
+        user = self.request.query_params.get('user',None)
+        if username is not None and password is not None:
+            queryset = queryset.filter(owner=user)
+        return queryset
 
 class InventoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Inventory.objects.all()
