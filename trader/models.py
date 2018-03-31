@@ -57,9 +57,7 @@ class Image(models.Model):
 class Item(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=100, blank=True, default='')
-    inventory_id = models.ForeignKey(Inventory,on_delete=models.CASCADE,)
     status = models.CharField(choices=ITEM_STATUS, default='male', max_length=100)
-    images = models.ForeignKey(Image,on_delete=models.CASCADE,)
     deleted = models.BooleanField(default=False)
 
     class Meta:
@@ -98,17 +96,61 @@ class Basket(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User,on_delete=models.CASCADE,)
     trade_id = models.ForeignKey(Trading,on_delete=models.CASCADE,)
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ('created',)
+
+class ItemOfBasket(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    basket_id = models.ForeignKey(Basket,on_delete=models.CASCADE,)
     items = models.ForeignKey(Item,on_delete=models.CASCADE,)
     deleted = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('created',)
 
+class ItemOfInventory(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    inventory_id = models.ForeignKey(Inventory,on_delete=models.CASCADE,)
+    items = models.ForeignKey(Item,on_delete=models.CASCADE,)
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ('created',)
+
+class ImageList(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    item_id = models.ForeignKey(Item,on_delete=models.CASCADE,)
+    images = models.ForeignKey(Image,on_delete=models.CASCADE,)
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ('created',)
+
+
 class Review(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    comment = models.CharField(max_length=100, blank=True, default='')
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ('created',)
+
+class ReviewLog(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     writer = models.ForeignKey(User,on_delete=models.CASCADE,)
     trade_id = models.ForeignKey(Trading,on_delete=models.CASCADE,)
-    comment = models.CharField(max_length=100, blank=True, default='')
+    review_id = models.ForeignKey(Review,on_delete=models.CASCADE,)
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ('created',)
+
+class Voting(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    receiver = models.ForeignKey(User,on_delete=models.CASCADE,related_name='vote')
+    voter = models.ForeignKey(User,on_delete=models.CASCADE,related_name='voted')
     rate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     deleted = models.BooleanField(default=False)
 
