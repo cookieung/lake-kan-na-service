@@ -16,7 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
 class InventorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Inventory
-        fields = ('id','name','owner','deleted')
+        fields = ('id','owner','deleted')
 
 
 class ItemSerializer(serializers.ModelSerializer):
