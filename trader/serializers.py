@@ -65,26 +65,26 @@ class TradingTagsSerializer(serializers.ModelSerializer):
 
 class ItemOfBasketSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Trader
+        model = ItemOfBasket
         fields = ('id','basket_id','items','deleted')
 
 
 class ItemOfInventorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Trader
+        model = ItemOfInventory
         fields = ('id','inventory_id','items','deleted')
 
 class ImageOfItemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Trader
+        model = ImageOfItem
         fields = ('id','item_id','images','deleted')
 
 class ReviewLogSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Trader
+        model = ReviewLog
         fields = ('id','writer','trade_id','review_id','deleted')
 
 class VotingSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Trader
+        model = Voting
         fields = ('id','receiver','voter','rate','deleted')
