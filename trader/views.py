@@ -73,7 +73,7 @@ class InventoryList(generics.ListCreateAPIView):
     def get_queryset(self):
         queryset = User.objects.all()
         user = self.request.query_params.get('user',None)
-        if username is not None and password is not None:
+        if user is not None:
             queryset = queryset.filter(owner=user)
         return queryset
 
