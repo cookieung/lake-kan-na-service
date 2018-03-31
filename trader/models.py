@@ -59,8 +59,16 @@ class Item(models.Model):
     name = models.CharField(max_length=100, blank=True, default='')
     inventory_id = models.ForeignKey(Inventory,on_delete=models.CASCADE,)
     status = models.CharField(choices=ITEM_STATUS, default='male', max_length=100)
-    tags = models.ForeignKey(Tag,on_delete=models.CASCADE,)
     images = models.ForeignKey(Image,on_delete=models.CASCADE,)
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ('created',)
+
+class ItemTags(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    item_id = models.ForeignKey(Item,on_delete=models.CASCADE,)
+    tags = models.ForeignKey(Tag,on_delete=models.CASCADE,)
     deleted = models.BooleanField(default=False)
 
     class Meta:
@@ -72,11 +80,19 @@ class Trading(models.Model):
     owner = models.ForeignKey(User,on_delete=models.CASCADE,related_name='trading')
     receiver = models.ForeignKey(User,on_delete=models.CASCADE,related_name='receiving')
     executeDate = models.DateTimeField(auto_now_add=False)
-    tags = models.ForeignKey(Tag,on_delete=models.CASCADE,)
     deleted = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('openDate',)
+
+class TradingTags(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    trading_id = models.ForeignKey(Trading,on_delete=models.CASCADE,)
+    tags = models.ForeignKey(Tag,on_delete=models.CASCADE,)
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ('created',)
 
 class Basket(models.Model):
     created = models.DateTimeField(auto_now_add=True)

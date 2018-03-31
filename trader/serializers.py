@@ -1,4 +1,4 @@
-from .models import Trader,User,Tag,Basket,Image,Inventory,Item,Review,Trading
+from .models import ItemTags,TradingTags,Trader,User,Tag,Basket,Image,Inventory,Item,Review,Trading
 from rest_framework import serializers
 
 class TraderSerializer(serializers.ModelSerializer):
@@ -22,7 +22,7 @@ class InventorySerializer(serializers.ModelSerializer):
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ('id','name','inventory_id','status','tags','images','deleted')
+        fields = ('id','name','inventory_id','status', 'images','deleted')
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -44,10 +44,21 @@ class BasketSerializer(serializers.ModelSerializer):
 class TradingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trading
-        fields = ('id','executeDate','owner','receiver','tags','deleted')
+        fields = ('id','executeDate','owner','receiver', 'deleted')
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ('id','writer','trade_id','comment','rate','deleted')
+
+class ItemTagsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ItemTags
+        fields = ('id', 'item_id', 'tags' ,'deleted')
+
+
+class TradingTagsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TradingTags
+        fields = ('id', 'trading_id', 'tags' ,'deleted')
 

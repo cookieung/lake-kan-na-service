@@ -19,6 +19,10 @@ urlpatterns = [
     url(r'^items/$', views.ItemList.as_view()),
     url(r'^items/(?P<pk>[0-9]+)/$', views.ItemDetail.as_view()),
 
+    url(r'^items/tags/$', views.ItemTagsList.as_view()),
+    url(r'^items/tags/(?P<pk>[0-9]+)/$', views.ItemTagsDetail.as_view()),
+
+
     url(r'^baskets/$', views.BasketList.as_view()),
     url(r'^baskets/(?P<pk>[0-9]+)/$', views.BasketDetail.as_view()),
 
@@ -30,6 +34,10 @@ urlpatterns = [
 
     url(r'^inventories/$', views.InventoryList.as_view()),
     url(r'^inventories/(?P<pk>[0-9]+)/$', views.InventoryDetail.as_view()),
+
+    url(r'^trading/tags/$', views.TradingTagsList.as_view()),
+    url(r'^trading/tags/(?P<pk>[0-9]+)/$', views.TradingTagsDetail.as_view()),
+
 
 
 ]

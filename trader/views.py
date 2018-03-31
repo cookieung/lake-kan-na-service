@@ -1,5 +1,5 @@
-from trader.models import Trader,User,Tag,Basket,Image,Inventory,Item,Review,Trading
-from trader.serializers import TraderSerializer,UserSerializer,TagSerializer,BasketSerializer,ImageSerializer,InventorySerializer,ItemSerializer,ReviewSerializer,TradingSerializer
+from trader.models import Trader,ItemTags,TradingTags,User,Tag,Basket,Image,Inventory,Item,Review,Trading
+from trader.serializers import TraderSerializer,UserSerializer,TagSerializer,ItemTagsSerializer,TradingTagsSerializer,BasketSerializer,ImageSerializer,InventorySerializer,ItemSerializer,ReviewSerializer,TradingSerializer
 from rest_framework import generics
 
 class TraderList(generics.ListCreateAPIView):
@@ -131,4 +131,33 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
 
+
+class ItemTagsList(generics.ListCreateAPIView):
+    queryset = ItemTags.objects.all()
+    serializer_class = ItemTagsSerializer
+    def get_queryset(self):
+        queryset = ItemTags.objects.all()
+        item = self.request.query_params.get('item',None)
+        if item is not None:
+            queryset = queryset.filter(item_id=item)
+        return queryset
+
+class ItemTagsDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ItemTags.objects.all()
+    serializer_class = ItemTagsSerializer
+
+
+class TradingTagsList(generics.ListCreateAPIView):
+    queryset = TradingTags.objects.all()
+    serializer_class = TradingTagsSerializer
+    def get_queryset(self):
+        queryset = ItemTags.objects.all()
+        trading = self.request.query_params.get('trading',None)
+        if trading is not None:
+            queryset = queryset.filter(trading_id=trading)
+        return queryset
+
+class TradingTagsDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = TradingTags.objects.all()
+    serializer_class = TradingTagsSerializer
 
