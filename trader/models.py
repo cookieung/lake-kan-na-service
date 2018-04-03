@@ -57,7 +57,7 @@ class Image(models.Model):
 class Item(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=100, blank=True, default='')
-    status = models.CharField(choices=ITEM_STATUS, default='male', max_length=100)
+    status = models.CharField(choices=ITEM_STATUS, default='visible', max_length=100)
     deleted = models.BooleanField(default=False)
 
     class Meta:
