@@ -128,7 +128,7 @@ class ItemList(generics.ListCreateAPIView):
         inventory = self.request.query_params.get('inventory',None)
         if inventory is not None:
             queryset = queryset.filter(inventory_id=inventory)
-        return queryset.order_by('id')
+        return queryset
 
 class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Item.objects.all()
