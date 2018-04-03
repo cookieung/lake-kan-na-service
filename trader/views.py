@@ -168,6 +168,13 @@ class TradingTagsDetail(generics.RetrieveUpdateDestroyAPIView):
 class ItemOfInventoryList(generics.ListCreateAPIView):
     queryset = ItemOfInventory.objects.all()
     serializer_class = ItemOfInventorySerializer
+    def get_queryset(self):
+        queryset = ItemOfInventory.objects.all()
+        inventory = self.request.query_params.get('inventory',None)
+        if inventory is not None:
+            queryset = queryset.filter(inventory_id=inventory)
+        return queryset.order_by('-created')
+
 
 class ItemOfInventoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ItemOfInventory.objects.all()
@@ -178,6 +185,12 @@ class ItemOfInventoryDetail(generics.RetrieveUpdateDestroyAPIView):
 class ItemOfBasketList(generics.ListCreateAPIView):
     queryset = ItemOfBasket.objects.all()
     serializer_class = ItemOfBasketSerializer
+    def get_queryset(self):
+        queryset = ItemOfBasket.objects.all()
+        basket = self.request.query_params.get('basket',None)
+        if basket is not None:
+            queryset = queryset.filter(basket_id=basket)
+        return queryset.order_by('-created')
 
 class ItemOfBasketDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ItemOfBasket.objects.all()
@@ -188,6 +201,12 @@ class ItemOfBasketDetail(generics.RetrieveUpdateDestroyAPIView):
 class ImageOfItemList(generics.ListCreateAPIView):
     queryset = ImageOfItem.objects.all()
     serializer_class = ImageOfItemSerializer
+    def get_queryset(self):
+        queryset = ImageOfItem.objects.all()
+        item = self.request.query_params.get('item',None)
+        if item is not None:
+            queryset = queryset.filter(item_id=item)
+        return queryset.order_by('-created')
 
 class ImageOfItemDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ImageOfItem.objects.all()
@@ -198,6 +217,18 @@ class ImageOfItemDetail(generics.RetrieveUpdateDestroyAPIView):
 class ReviewLogList(generics.ListCreateAPIView):
     queryset = ReviewLog.objects.all()
     serializer_class = ReviewLogSerializer
+    def get_queryset(self):
+        queryset = ReviewLog.objects.all()
+        writer = self.request.query_params.get('writer',None)
+        trade = self.request.query_params.get('trade',None)
+        review = self.request.query_params.get('review',None)
+        if writer is not None:
+            queryset = queryset.filter(write=writer)
+        if trade is not None:
+            queryset = queryset.filter(trade_id=trade)
+        if review is not None:
+            queryset = queryset.filter(review_id=review)
+        return queryset.order_by('-created')
 
 class ReviewLogDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ReviewLog.objects.all()
@@ -208,6 +239,12 @@ class ReviewLogDetail(generics.RetrieveUpdateDestroyAPIView):
 class VotingList(generics.ListCreateAPIView):
     queryset = Voting.objects.all()
     serializer_class = VotingSerializer
+    def get_queryset(self):
+        queryset = Voting.objects.all()
+        receiver = self.request.query_params.get('receiver',None)
+        if receiver is not None:
+            queryset = queryset.filter(receiver=receiver)
+        return queryset.order_by('-created')
 
 class VotingDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Voting.objects.all()
