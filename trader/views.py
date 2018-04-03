@@ -121,7 +121,7 @@ class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
 
 #9
 class ItemList(generics.ListCreateAPIView):
-    queryset = Item.objects.all()
+    queryset = Item.objects.all().order_by('-created')
     serializer_class = ItemSerializer
     def get_queryset(self):
         queryset = Item.objects.all()
