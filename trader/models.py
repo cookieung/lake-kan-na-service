@@ -61,7 +61,7 @@ class Item(models.Model):
     deleted = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ('-created',)
+        ordering = ('created',)
 
 class ItemTags(models.Model):
     created = models.DateTimeField(auto_now_add=True)
