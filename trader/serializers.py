@@ -45,7 +45,7 @@ class BasketSerializer(serializers.ModelSerializer):
 class TradingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trading
-        fields = ('id','executeDate','owner','receiver', 'deleted')
+        fields = ('id','executeDate','name','description','owner','receiver', 'deleted')
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:

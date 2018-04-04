@@ -75,6 +75,8 @@ class ItemTags(models.Model):
 
 class Trading(models.Model):
     openDate = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(max_length=100, blank=True, default='')
+    description = models.CharField(max_length=200, blank=True, default='')
     owner = models.ForeignKey(User,on_delete=models.CASCADE,related_name='trading')
     receiver = models.ForeignKey(User,on_delete=models.CASCADE,related_name='receiving')
     executeDate = models.DateTimeField(auto_now_add=False)
