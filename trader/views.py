@@ -69,8 +69,11 @@ class BasketList(generics.ListCreateAPIView):
     def get_queryset(self):
         queryset = Basket.objects.all()
         user = self.request.query_params.get('user',None)
+        trade = self.request.query_params.get('trade',None)
         if user is not None:
             queryset = queryset.filter(owner=user)
+        if trade is not None:
+            queryset = queryset.filter(trade_id=trade)
         return queryset
 
 class BasketDetail(generics.RetrieveUpdateDestroyAPIView):
