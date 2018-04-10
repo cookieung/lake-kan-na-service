@@ -16,7 +16,7 @@ class Trader(models.Model):
     name = models.CharField(max_length=100, blank=True, default='')
     lname = models.CharField(max_length=100, blank=True, default='')
     id_number = models.CharField(max_length=13, blank=True, default='')
-    gender = models.CharField(choices=GENDER_CHOICES, default='male', max_length=100)
+    gender = models.CharField(choices=GENDER_CHOICES, default='M', max_length=100)
     birthdate = models.CharField(max_length=10, blank=True, default='')
     facebook = models.CharField(max_length=100, blank=True, default='')
     lineid = models.CharField(max_length=100, blank=True, default='')
@@ -57,7 +57,7 @@ class Image(models.Model):
 class Item(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=100, blank=True, default='')
-    status = models.CharField(choices=ITEM_STATUS, default='visible', max_length=100)
+    status = models.CharField(choices=ITEM_STATUS, default='V', max_length=100)
     deleted = models.BooleanField(default=False)
 
     class Meta:
