@@ -128,10 +128,7 @@ class ItemList(generics.ListCreateAPIView):
     serializer_class = ItemSerializer
     def get_queryset(self):
         queryset = Item.objects.all()
-        inventory = self.request.query_params.get('inventory',None)
         status = self.request.query_params.get('status',None)
-        if inventory is not None:
-            queryset = queryset.filter(inventory_id=inventory)
         if status is not None:
             queryset = queryset.filter(status=status)
         return queryset.order_by('-created')
