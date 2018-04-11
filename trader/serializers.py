@@ -1,6 +1,7 @@
 from .models import ItemTags,TradingTags,Trader,User,Tag,Basket,Image,Inventory,Item,Review,Trading,ItemOfBasket,ItemOfInventory,ImageOfItem,ReviewLog,Voting
 from rest_framework import serializers
-
+# import json
+# from django.http import HttpResponse
 
 class TraderSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,7 +25,6 @@ class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = ('id','created','name','status','deleted')
-
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
@@ -69,10 +69,23 @@ class ItemOfBasketSerializer(serializers.ModelSerializer):
         fields = ('id','basket_id','items','deleted')
 
 
+# class PostItemOfInventorySerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = ItemOfInventory
+#         fields = ('id','inventory_id','items','deleted')
+
 class ItemOfInventorySerializer(serializers.ModelSerializer):
+   
     class Meta:
         model = ItemOfInventory
         fields = ('id','inventory_id','items','deleted')
+    def to_representation(self, obj):
+        return {
+            "id": obj.id, 
+            "inventory_id": {"id": obj.inventory_id.id, "owner": obj.inventory_id.owner.id, "deleted": obj.inventory_id.deleted}, 
+            "items": {"id": obj.items.id,"created": obj.items.created,"name": obj.items.name,"status": obj.items.status,"deleted": obj.items.deleted} , 
+            "deleted": obj.deleted
+        }
 
 class ImageOfItemSerializer(serializers.ModelSerializer):
     class Meta:
