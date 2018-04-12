@@ -75,7 +75,6 @@ class ItemOfBasketSerializer(serializers.ModelSerializer):
 #         fields = ('id','inventory_id','items','deleted')
 
 class ItemOfInventorySerializer(serializers.ModelSerializer):
-   
     class Meta:
         model = ItemOfInventory
         fields = ('id','inventory_id','items','deleted')
@@ -91,6 +90,13 @@ class ImageOfItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImageOfItem
         fields = ('id','item_id','images','deleted')
+    def to_representation(self, obj):
+        return {
+            "id": obj.id, 
+            "item_id": {"id": obj.item_id.id,"created": obj.item_id.created,"name": obj.item_id.name,"status": obj.item_id.status,"deleted": obj.item_id.deleted} ,
+            "images": {"id": obj.images.id, "owner": obj.images.url, "deleted": obj.images.deleted}, 
+            "deleted": obj.deleted
+        }
 
 class ReviewLogSerializer(serializers.ModelSerializer):
     class Meta:
