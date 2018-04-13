@@ -82,7 +82,13 @@ class ItemOfBasketSerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemOfBasket
         fields = ('id','basket_id','items','deleted')
-
+    def to_representation(self, obj):
+        return {
+            "id": obj.id,
+            "basket_id": obj.basket_id.id,
+            "items": {"id": obj.items.id,"created": obj.items.created,"name": obj.items.name,"status": obj.items.status,"deleted": obj.items.deleted} ,
+            "deleted": obj.deleted
+        }
 
 class ItemOfInventorySerializer(serializers.ModelSerializer):
     class Meta:
