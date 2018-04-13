@@ -56,12 +56,26 @@ class ItemTagsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemTags
         fields = ('id', 'item_id', 'tags' ,'deleted')
+    def to_representation(self, obj):
+        return {
+            "id": obj.id,
+            "item_id": {"id": obj.item_id.id,"created": obj.item_id.created,"name": obj.item_id.name,"status": obj.item_id.status,"deleted": obj.item_id.deleted} ,
+            "tags": {"id": obj.tags.id, "name": obj.tags.name, "deleted": obj.tags.deleted},
+            "deleted": obj.deleted
+        }
 
 
 class TradingTagsSerializer(serializers.ModelSerializer):
     class Meta:
         model = TradingTags
         fields = ('id', 'trading_id', 'tags' ,'deleted')
+    def to_representation(self, obj):
+        return {
+            "id": obj.id,
+            "trading_id": {"id": obj.trading_id.id, "executeDate": obj.trading_id.executeDate, "name": obj.trading_id.name,"description": obj.trading_id.description,"owner": obj.trading_id.owner.id,"receiver": obj.trading_id.receiver.id, "deleted": obj.trading_id.deleted},
+            "tags": {"id": obj.tags.id, "name": obj.tags.name, "deleted": obj.tags.deleted},
+            "deleted": obj.deleted
+        }
 
 class ItemOfBasketSerializer(serializers.ModelSerializer):
     class Meta:
@@ -69,20 +83,15 @@ class ItemOfBasketSerializer(serializers.ModelSerializer):
         fields = ('id','basket_id','items','deleted')
 
 
-# class PostItemOfInventorySerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = ItemOfInventory
-#         fields = ('id','inventory_id','items','deleted')
-
 class ItemOfInventorySerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemOfInventory
         fields = ('id','inventory_id','items','deleted')
     def to_representation(self, obj):
         return {
-            "id": obj.id, 
-            "inventory_id": {"id": obj.inventory_id.id, "owner": obj.inventory_id.owner.id, "deleted": obj.inventory_id.deleted}, 
-            "items": {"id": obj.items.id,"created": obj.items.created,"name": obj.items.name,"status": obj.items.status,"deleted": obj.items.deleted} , 
+            "id": obj.id,
+            "inventory_id": {"id": obj.inventory_id.id, "owner": obj.inventory_id.owner.id, "deleted": obj.inventory_id.deleted},
+            "items": {"id": obj.items.id,"created": obj.items.created,"name": obj.items.name,"status": obj.items.status,"deleted": obj.items.deleted} ,
             "deleted": obj.deleted
         }
 
@@ -92,9 +101,9 @@ class ImageOfItemSerializer(serializers.ModelSerializer):
         fields = ('id','item_id','images','deleted')
     def to_representation(self, obj):
         return {
-            "id": obj.id, 
+            "id": obj.id,
             "item_id": {"id": obj.item_id.id,"created": obj.item_id.created,"name": obj.item_id.name,"status": obj.item_id.status,"deleted": obj.item_id.deleted} ,
-            "images": {"id": obj.images.id, "owner": obj.images.url, "deleted": obj.images.deleted}, 
+            "images": {"id": obj.images.id, "url": obj.images.url, "deleted": obj.images.deleted},
             "deleted": obj.deleted
         }
 
