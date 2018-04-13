@@ -144,8 +144,11 @@ class ItemTagsList(generics.ListCreateAPIView):
     def get_queryset(self):
         queryset = ItemTags.objects.all()
         item = self.request.query_params.get('item',None)
+        tag = self.request.query_params.get('tag',None)
         if item is not None:
             queryset = queryset.filter(item_id=item)
+        if tag is not None:
+            queryset = queryset.filter(tags=tag)
         return queryset
 
 class ItemTagsDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -157,7 +160,7 @@ class TradingTagsList(generics.ListCreateAPIView):
     queryset = TradingTags.objects.all()
     serializer_class = TradingTagsSerializer
     def get_queryset(self):
-        queryset = ItemTags.objects.all()
+        queryset = TradingTags.objects.all()
         trading = self.request.query_params.get('trading',None)
         if trading is not None:
             queryset = queryset.filter(trading_id=trading)
