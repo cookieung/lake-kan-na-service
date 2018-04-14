@@ -207,16 +207,21 @@ class ItemOfBasketDetail(generics.RetrieveUpdateDestroyAPIView):
 class ImageOfItemList(generics.ListCreateAPIView):
     queryset = ImageOfItem.objects.all()
     serializer_class = ImageOfItemSerializer
-    # queryset = ImageOfItem.objects.all()
-    # serializer_class = ImageOfItemSerializer
     def get_queryset(self):
         queryset = ImageOfItem.objects.all()
         item = self.request.query_params.get('item', None)
         inventory = self.request.query_params.get('inventory', None)
+        basket = self.request.query_params.get('basket', None)
         if inventory is not None:
             item_of_inventory_queryset = ItemOfInventory.objects.all()
             item_of_inventory_queryset = item_of_inventory_queryset.filter(inventory_id=inventory)
             item_id_value = item_of_inventory_queryset.values_list('items', flat=True)
+            item_id_arr = list(item_id_value)
+            queryset = queryset.filter(item_id__in=item_id_arr)
+        if basket is not None:
+            item_of_basket_queryset = ItemOfBasket.objects.all()
+            item_of_basket_queryset = item_of_basket_queryset.filter(basket_id=basket)
+            item_id_value = item_of_basket_queryset.values_list('items', flat=True)
             item_id_arr = list(item_id_value)
             queryset = queryset.filter(item_id__in=item_id_arr)
         if item is not None:
