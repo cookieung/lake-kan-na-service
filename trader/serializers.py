@@ -85,7 +85,7 @@ class ItemOfBasketSerializer(serializers.ModelSerializer):
     def to_representation(self, obj):
         return {
             "id": obj.id,
-            "basket_id": {"id": obj.basket_id.id, "owner": obj.basket_id.owner, "trade_id": obj.basket_id.trade_id, "deleted": obj.basket_id.deleted},
+            "basket_id": {"id": obj.basket_id.id, "owner": obj.basket_id.owner.id, "trade_id": obj.basket_id.trade_id.id, "deleted": obj.basket_id.deleted},
             "items": {"id": obj.items.id,"created": obj.items.created,"name": obj.items.name,"status": obj.items.status,"deleted": obj.items.deleted} ,
             "deleted": obj.deleted
         }
