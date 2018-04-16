@@ -1,6 +1,7 @@
 from trader.models import ItemTags,TradingTags,Trader,User,Tag,Basket,Image,Inventory,Item,Review,Trading,ItemOfBasket,ItemOfInventory,ImageOfItem,ReviewLog,Voting
 from trader.serializers import TraderSerializer,UserSerializer,TagSerializer,ItemTagsSerializer,TradingTagsSerializer,BasketSerializer,ImageSerializer,InventorySerializer,ItemSerializer,ReviewSerializer,TradingSerializer,ItemOfBasketSerializer,ItemOfInventorySerializer,ImageOfItemSerializer,ReviewLogSerializer,VotingSerializer
 from rest_framework import generics
+from rest_framework.response import Response
 
 #1
 class TraderList(generics.ListCreateAPIView):
@@ -197,6 +198,19 @@ class ItemOfBasketList(generics.ListCreateAPIView):
         if basket is not None:
             queryset = queryset.filter(basket_id=basket)
         return queryset.order_by('-created')
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data, many=isinstance(request.data, list))
+        serializer.is_valid(raise_exception=True)
+        itemBasket_created = []
+        for list_elt in request.data:
+            basket = Basket.objects.get(pk=list_elt.get('basket_id'))
+            items = Item.objects.get(pk=list_elt.get('items'))
+            item_obj = ItemOfBasket.objects.create(basket_id=basket, items=items)
+            itemBasket_created.append(item_obj.id)
+        results = ItemOfBasket.objects.filter(id__in=itemBasket_created)
+        output_serializer = ItemOfBasketSerializer(results, many=True)
+        data = output_serializer.data[:]
+        return Response(data)
 
 class ItemOfBasketDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ItemOfBasket.objects.all()
