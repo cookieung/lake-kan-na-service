@@ -42,12 +42,15 @@ class TradingList(generics.ListCreateAPIView):
         owner = self.request.query_params.get('owner',None)
         receiver = self.request.query_params.get('receiver',None)
         tag = self.request.query_params.get('tag',None)
+        status = self.request.query_params.get('status',None)
         if owner is not None:
             queryset = queryset.filter(owner=owner)
         if receiver is not None:
             queryset = queryset.filter(receiver=receiver)
         if tag is not None:
             queryset = queryset.filter(tags=tag)
+        if status is not None:
+            queryset = queryset.filter(status=status)
         return queryset
 
 class TradingDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -71,10 +74,13 @@ class BasketList(generics.ListCreateAPIView):
         queryset = Basket.objects.all()
         user = self.request.query_params.get('user',None)
         trade = self.request.query_params.get('trade',None)
+        status = self.request.query_params.get('status',None)
         if user is not None:
             queryset = queryset.filter(owner=user)
         if trade is not None:
             queryset = queryset.filter(trade_id=trade)
+        if status is not None:
+            queryset = queryset.filter(status=status)
         return queryset
 
 class BasketDetail(generics.RetrieveUpdateDestroyAPIView):

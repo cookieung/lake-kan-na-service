@@ -41,12 +41,12 @@ class ImageSerializer(serializers.ModelSerializer):
 class BasketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Basket
-        fields = ('id','owner','trade_id','deleted')
+        fields = ('id','owner','trade_id', 'status', 'deleted')
 
 class TradingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trading
-        fields = ('id','executeDate','name','description','owner','receiver', 'deleted')
+        fields = ('id','executeDate','name','description','owner','receiver', 'status', 'deleted')
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:

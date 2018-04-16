@@ -11,6 +11,18 @@ ITEM_STATUS = (
     ('I', 'invisible'),
 )
 
+TRADE_STATUS = (
+    ('O', 'open'),
+    ('P','pending'),
+    ('X','exchanging'),
+    ('C','completed')
+)
+
+BASKET_STATUS = (
+    ('R', 'request'),
+    ('A','approved')
+)
+
 class Trader(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=100, blank=True, default='')
@@ -78,8 +90,9 @@ class Trading(models.Model):
     name = models.CharField(max_length=100, blank=True, default='')
     description = models.CharField(max_length=200, blank=True, default='')
     owner = models.ForeignKey(User,on_delete=models.CASCADE,related_name='trading')
-    receiver = models.ForeignKey(User,on_delete=models.CASCADE,related_name='receiving')
+    receiver = models.ForeignKey(User,on_delete=models.CASCADE,related_name='receiving', blank=True, null=True)
     executeDate = models.DateTimeField(auto_now_add=False)
+    status = models.CharField(choices=TRADE_STATUS, default='O', max_length=100)
     deleted = models.BooleanField(default=False)
 
     class Meta:
@@ -98,6 +111,7 @@ class Basket(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User,on_delete=models.CASCADE,)
     trade_id = models.ForeignKey(Trading,on_delete=models.CASCADE,)
+    status = models.CharField(choices=BASKET_STATUS, default='R', max_length=100)
     deleted = models.BooleanField(default=False)
 
     class Meta:
