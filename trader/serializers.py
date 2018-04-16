@@ -42,6 +42,20 @@ class BasketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Basket
         fields = ('id','owner','trade_id', 'status', 'deleted')
+    def to_representation(self, obj):
+        return {
+            "id": obj.id,
+            "owner": {
+                    "id": obj.owner.id,
+                    "trader_id": {
+                            "id": obj.owner.trader_id.id,
+                            "name": obj.owner.trader_id.name,
+                            "lname": obj.owner.trader_id.lname
+                    }
+            },
+            "trade_id": obj.trade_id.id,
+            "deleted": obj.deleted
+        }
 
 class TradingSerializer(serializers.ModelSerializer):
     class Meta:
