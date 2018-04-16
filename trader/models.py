@@ -63,7 +63,7 @@ class Tag(models.Model):
 
 class Image(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    url = models.CharField(max_length=100, blank=True, default='')
+    url = models.CharField(blank=True, default='')
     deleted = models.BooleanField(default=False)
 
 class Item(models.Model):
