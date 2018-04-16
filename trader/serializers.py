@@ -47,6 +47,47 @@ class TradingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trading
         fields = ('id','executeDate','name','description','owner','receiver', 'status', 'deleted')
+    def to_representation(self, obj):
+        if obj.receiver is None:
+            return {
+                "id": obj.id,
+                "executeDate": obj.executeDate,
+                "name": obj.name,
+                "description": obj.description,
+                "owner": {
+                        "id": obj.owner.id,
+                        "trader_id": {
+                                "id": obj.owner.trader_id.id,
+                                "name": obj.owner.trader_id.name,
+                                "lname": obj.owner.trader_id.lname
+                        }
+                },
+                "receiver": None,
+                "deleted": obj.deleted
+            }
+        return {
+            "id": obj.id,
+            "executeDate": obj.executeDate,
+            "name": obj.name,
+            "description": obj.description,
+            "owner": {
+                    "id": obj.owner.id,
+                    "trader_id": {
+                            "id": obj.owner.trader_id.id,
+                            "name": obj.owner.trader_id.name,
+                            "lname": obj.owner.trader_id.lname
+                    }
+            },
+            "receiver": {
+                    "id": obj.receiver.id,
+                    "trader_id": {
+                            "id": obj.receiver.trader_id.id,
+                            "name": obj.receiver.trader_id.name,
+                            "lname": obj.receiver.trader_id.lname
+                    }
+            },
+            "deleted": obj.deleted
+        }
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
