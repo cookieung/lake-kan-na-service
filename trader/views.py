@@ -2,6 +2,7 @@ from trader.models import ItemTags,TradingTags,Trader,User,Tag,Basket,Image,Inve
 from trader.serializers import TraderSerializer,UserSerializer,TagSerializer,ItemTagsSerializer,TradingTagsSerializer,BasketSerializer,ImageSerializer,InventorySerializer,ItemSerializer,ReviewSerializer,TradingSerializer,ItemOfBasketSerializer,ItemOfInventorySerializer,ImageOfItemSerializer,ReviewLogSerializer,VotingSerializer
 from rest_framework import generics
 from rest_framework.response import Response
+from django.db.models import Q
 
 #1
 class TraderList(generics.ListCreateAPIView):
@@ -39,10 +40,13 @@ class TradingList(generics.ListCreateAPIView):
     serializer_class = TradingSerializer
     def get_queryset(self):
         queryset = Trading.objects.all()
+        user = self.request.query_params.get('user',None)
         owner = self.request.query_params.get('owner',None)
         receiver = self.request.query_params.get('receiver',None)
         tag = self.request.query_params.get('tag',None)
         status = self.request.query_params.get('status',None)
+        if user is not None:
+            queryset = queryset.filter(Q(owner=user) | Q(receiver=user))
         if owner is not None:
             queryset = queryset.filter(owner=owner)
         if receiver is not None:
