@@ -77,6 +77,7 @@ class TradingSerializer(serializers.ModelSerializer):
                         }
                 },
                 "receiver": None,
+                "status": obj.status,
                 "deleted": obj.deleted
             }
         return {
@@ -100,6 +101,7 @@ class TradingSerializer(serializers.ModelSerializer):
                             "lname": obj.receiver.trader_id.lname
                     }
             },
+            "status": obj.status,
             "deleted": obj.deleted
         }
 
