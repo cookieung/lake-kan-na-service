@@ -54,6 +54,7 @@ class BasketSerializer(serializers.ModelSerializer):
                     }
             },
             "trade_id": obj.trade_id.id,
+            "status": obj.status,
             "deleted": obj.deleted
         }
 
