@@ -215,8 +215,9 @@ class ItemOfBasketList(generics.ListCreateAPIView):
         for list_elt in request.data:
             basket = Basket.objects.get(pk=list_elt.get('basket_id'))
             items = Item.objects.get(pk=list_elt.get('items'))
-            item_obj = ItemOfBasket.objects.create(basket_id=basket, items=items)
-            itemBasket_created.append(item_obj.id)
+            if not ItemOfBasket.objects.filter(basket_id=list_elt.get('basket_id')).filter(items=list_elt.get('items')).exists() :
+                item_obj = ItemOfBasket.objects.create(basket_id=basket, items=items)
+                itemBasket_created.append(item_obj.id)
         results = ItemOfBasket.objects.filter(id__in=itemBasket_created)
         output_serializer = ItemOfBasketSerializer(results, many=True)
         data = output_serializer.data[:]
