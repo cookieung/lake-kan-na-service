@@ -84,6 +84,7 @@ class TradingSerializer(serializers.ModelSerializer):
             }
         return {
             "id": obj.id,
+            "openDate": obj.openDate,
             "executeDate": obj.executeDate,
             "name": obj.name,
             "description": obj.description,
