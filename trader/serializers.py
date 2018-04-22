@@ -66,6 +66,7 @@ class TradingSerializer(serializers.ModelSerializer):
         if obj.receiver is None:
             return {
                 "id": obj.id,
+                "openDate": obj.openDate,
                 "executeDate": obj.executeDate,
                 "name": obj.name,
                 "description": obj.description,
