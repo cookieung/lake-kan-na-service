@@ -304,6 +304,13 @@ class MessageList(generics.ListCreateAPIView):
         queryset = Message.objects.all()
         owner = self.request.query_params.get('owner',None)
         basket = self.request.query_params.get('basket',None)
+        trade = self.request.query_params.get('trade',None)
+        if trade is not None:
+            basket_queryset = Basket.objects.all()
+            basket_queryset = basket_queryset.filter(trade_id=trade)
+            basket_id_value = basket_queryset.values_list('id', flat=True)
+            basket_id_arr = list(basket_id_value)
+            queryset = queryset.filter(basket__in=basket_id_arr)
         if owner is not None:
             queryset = queryset.filter(owner=owner)
         if basket is not None:
