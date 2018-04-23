@@ -69,8 +69,8 @@ urlpatterns = [
     url(r'^voting/(?P<pk>[0-9]+)/$', views.VotingDetail.as_view()),
 
     #17
-    url(r'^trading/messgae/$', views.MessageList.as_view()),
-    url(r'^trading/messgae/(?P<pk>[0-9]+)/$', views.MessageDetail.as_view()),
+    url(r'^trading/message/$', views.MessageList.as_view()),
+    url(r'^trading/message/(?P<pk>[0-9]+)/$', views.MessageDetail.as_view()),
 
 ]
 
