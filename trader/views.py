@@ -1,5 +1,5 @@
-from trader.models import ItemTags,TradingTags,Trader,User,Tag,Basket,Image,Inventory,Item,Review,Trading,ItemOfBasket,ItemOfInventory,ImageOfItem,ReviewLog,Voting
-from trader.serializers import TraderSerializer,UserSerializer,TagSerializer,ItemTagsSerializer,TradingTagsSerializer,BasketSerializer,ImageSerializer,InventorySerializer,ItemSerializer,ReviewSerializer,TradingSerializer,ItemOfBasketSerializer,ItemOfInventorySerializer,ImageOfItemSerializer,ReviewLogSerializer,VotingSerializer
+from trader.models import ItemTags,TradingTags,Trader,User,Tag,Basket,Image,Inventory,Item,Review,Trading,ItemOfBasket,ItemOfInventory,ImageOfItem,ReviewLog,Voting,Message
+from trader.serializers import TraderSerializer,UserSerializer,TagSerializer,ItemTagsSerializer,TradingTagsSerializer,BasketSerializer,ImageSerializer,InventorySerializer,ItemSerializer,ReviewSerializer,TradingSerializer,ItemOfBasketSerializer,ItemOfInventorySerializer,ImageOfItemSerializer,ReviewLogSerializer,VotingSerializer,MessageSerializer
 from rest_framework import generics
 from rest_framework.response import Response
 from django.db.models import Q
@@ -294,3 +294,22 @@ class VotingList(generics.ListCreateAPIView):
 class VotingDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Voting.objects.all()
     serializer_class = VotingSerializer
+
+
+#17
+class MessageList(generics.ListCreateAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+    def get_queryset(self):
+        queryset = Message.objects.all()
+        owner = self.request.query_params.get('owner',None)
+        basket = self.request.query_params.get('basket',None)
+        if owner is not None:
+            queryset = queryset.filter(owner=owner)
+        if basket is not None:
+            queryset = queryset.filter(basket=basket)
+        return queryset.order_by('-created')
+
+class MessageDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer

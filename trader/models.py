@@ -172,3 +172,15 @@ class Voting(models.Model):
 
     class Meta:
         ordering = ('created',)
+
+
+class Message(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(User,on_delete=models.CASCADE,)
+    basket = models.ForeignKey(Basket,on_delete=models.CASCADE,)
+    detail = models.CharField(max_length=200, blank=True, default='')
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ('created',)
+

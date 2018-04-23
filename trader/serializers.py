@@ -1,4 +1,4 @@
-from .models import ItemTags,TradingTags,Trader,User,Tag,Basket,Image,Inventory,Item,Review,Trading,ItemOfBasket,ItemOfInventory,ImageOfItem,ReviewLog,Voting
+from .models import ItemTags,TradingTags,Trader,User,Tag,Basket,Image,Inventory,Item,Review,Trading,ItemOfBasket,ItemOfInventory,ImageOfItem,ReviewLog,Voting,Message
 from rest_framework import serializers
 # import json
 # from django.http import HttpResponse
@@ -183,3 +183,24 @@ class VotingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Voting
         fields = ('id','receiver','voter','rate','deleted')
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = ('id', 'owner', 'basket', 'detail','deleted')
+    def to_representation(self, obj):
+        return {
+            "id": obj.id,
+            "owner": {
+                    "id": obj.owner.id,
+                    "trader_id": {
+                            "id": obj.owner.trader_id.id,
+                            "name": obj.owner.trader_id.name,
+                            "lname": obj.owner.trader_id.lname
+                    }
+            },
+            "basket": {"id": obj.basket.id, "owner": obj.basket.owner.id, "trade_id": obj.basket.trade_id.id, "deleted": obj.basket.deleted},
+            "detail": obj.detail,
+            "deleted": obj.deleted
+        }

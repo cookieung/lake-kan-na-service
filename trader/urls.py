@@ -68,6 +68,10 @@ urlpatterns = [
     url(r'^voting/$', views.VotingList.as_view()),
     url(r'^voting/(?P<pk>[0-9]+)/$', views.VotingDetail.as_view()),
 
+    #17
+    url(r'^trading/messgae/$', views.MessageList.as_view()),
+    url(r'^trading/messgae/(?P<pk>[0-9]+)/$', views.MessageDetail.as_view()),
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
