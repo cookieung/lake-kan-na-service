@@ -93,6 +93,7 @@ class Trading(models.Model):
     receiver = models.ForeignKey(User,on_delete=models.CASCADE,related_name='receiving', blank=True, null=True)
     executeDate = models.DateTimeField(auto_now_add=False)
     status = models.CharField(choices=TRADE_STATUS, default='O', max_length=100)
+    image = models.ForeignKey(Image,on_delete=models.CASCADE,blank=True, null=True)
     deleted = models.BooleanField(default=False)
 
     class Meta:

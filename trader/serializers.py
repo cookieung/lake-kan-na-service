@@ -61,27 +61,23 @@ class BasketSerializer(serializers.ModelSerializer):
 class TradingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trading
-        fields = ('id','executeDate','name','description','owner','receiver', 'status', 'deleted')
+        fields = ('id','executeDate','name','description','owner','receiver', 'status', 'image', 'deleted')
     def to_representation(self, obj):
         if obj.receiver is None:
-            return {
-                "id": obj.id,
-                "openDate": obj.openDate,
-                "executeDate": obj.executeDate,
-                "name": obj.name,
-                "description": obj.description,
-                "owner": {
-                        "id": obj.owner.id,
-                        "trader_id": {
-                                "id": obj.owner.trader_id.id,
-                                "name": obj.owner.trader_id.name,
-                                "lname": obj.owner.trader_id.lname
-                        }
-                },
-                "receiver": None,
-                "status": obj.status,
-                "deleted": obj.deleted
+            receiver = None
+        else:
+            receiver = {
+                    "id": obj.receiver.id,
+                    "trader_id": {
+                            "id": obj.receiver.trader_id.id,
+                            "name": obj.receiver.trader_id.name,
+                            "lname": obj.receiver.trader_id.lname
+                    }
             }
+        if obj.image is None:
+            image = None
+        else:
+            image = {"id": obj.image.id, "url": obj.image.url, "deleted": obj.image.deleted}
         return {
             "id": obj.id,
             "openDate": obj.openDate,
@@ -96,15 +92,9 @@ class TradingSerializer(serializers.ModelSerializer):
                             "lname": obj.owner.trader_id.lname
                     }
             },
-            "receiver": {
-                    "id": obj.receiver.id,
-                    "trader_id": {
-                            "id": obj.receiver.trader_id.id,
-                            "name": obj.receiver.trader_id.name,
-                            "lname": obj.receiver.trader_id.lname
-                    }
-            },
+            "receiver": receiver,
             "status": obj.status,
+            "image": image,
             "deleted": obj.deleted
         }
 
