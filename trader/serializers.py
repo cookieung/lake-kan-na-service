@@ -182,6 +182,7 @@ class MessageSerializer(serializers.ModelSerializer):
     def to_representation(self, obj):
         return {
             "id": obj.id,
+            "created": obj.id,
             "owner": {
                     "id": obj.owner.id,
                     "trader_id": {
