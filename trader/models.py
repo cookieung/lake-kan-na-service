@@ -23,6 +23,12 @@ BASKET_STATUS = (
     ('A','approved')
 )
 
+class Image(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    url = models.CharField(max_length=1000, blank=True, default='')
+    deleted = models.BooleanField(default=False)
+
+
 class Trader(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=100, blank=True, default='')
@@ -32,6 +38,7 @@ class Trader(models.Model):
     birthdate = models.CharField(max_length=10, blank=True, default='')
     facebook = models.CharField(max_length=100, blank=True, default='')
     lineid = models.CharField(max_length=100, blank=True, default='')
+    image = models.ForeignKey(Image,on_delete=models.CASCADE,blank=True, null=True)
     deleted = models.BooleanField(default=False)
 
     class Meta:
@@ -61,10 +68,6 @@ class Tag(models.Model):
     name = models.CharField(max_length=100, blank=True, default='')
     deleted = models.BooleanField(default=False)
 
-class Image(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    url = models.CharField(max_length=1000, blank=True, default='')
-    deleted = models.BooleanField(default=False)
 
 class Item(models.Model):
     created = models.DateTimeField(auto_now_add=True)

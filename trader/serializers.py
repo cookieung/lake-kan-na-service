@@ -6,14 +6,29 @@ from rest_framework import serializers
 class TraderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trader
-        fields = ('id','id_number','name','lname', 'gender','birthdate','facebook','lineid','deleted')
+        fields = ('id','id_number','name','lname', 'gender','birthdate','facebook','lineid', 'image', 'deleted')
+    def to_representation(self, obj):
+        if obj.image is None:
+            image = None
+        else:
+            image = {"id": obj.image.id, "url": obj.image.url, "deleted": obj.image.deleted}
+        return {
+            "id": obj.id,
+            "id_number": obj.id_number,
+            "name": obj.name,
+            "lname": obj.lname,
+            "gender": obj.gender,
+            "birthdate": obj.birthdate,
+            "facebook": obj.facebook,
+            "lineid": obj.lineid,
+            "image": image,
+            "deleted": obj.deleted
+        }    
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id','trader_id','username','password', 'deleted')
-
-
 
 
 class InventorySerializer(serializers.ModelSerializer):
@@ -78,6 +93,10 @@ class TradingSerializer(serializers.ModelSerializer):
             image = None
         else:
             image = {"id": obj.image.id, "url": obj.image.url, "deleted": obj.image.deleted}
+        if obj.owner.trader_id.image is None:
+            imageProfile = None
+        else:
+            imageProfile = {"id": obj.owner.trader_id.image.id, "url": obj.owner.trader_id.image.url, "deleted": obj.owner.trader_id.image.deleted}
         return {
             "id": obj.id,
             "openDate": obj.openDate,
@@ -89,7 +108,8 @@ class TradingSerializer(serializers.ModelSerializer):
                     "trader_id": {
                             "id": obj.owner.trader_id.id,
                             "name": obj.owner.trader_id.name,
-                            "lname": obj.owner.trader_id.lname
+                            "lname": obj.owner.trader_id.lname,
+                            "image": imageProfile
                     }
             },
             "receiver": receiver,
@@ -180,6 +200,10 @@ class MessageSerializer(serializers.ModelSerializer):
         model = Message
         fields = ('id', 'owner', 'basket', 'detail','deleted')
     def to_representation(self, obj):
+        if obj.owner.trader_id.image is None:
+            imageProfile = None
+        else:
+            imageProfile = {"id": obj.owner.trader_id.image.id, "url": obj.owner.trader_id.image.url, "deleted": obj.owner.trader_id.image.deleted}
         return {
             "id": obj.id,
             "created": obj.created,
@@ -188,7 +212,8 @@ class MessageSerializer(serializers.ModelSerializer):
                     "trader_id": {
                             "id": obj.owner.trader_id.id,
                             "name": obj.owner.trader_id.name,
-                            "lname": obj.owner.trader_id.lname
+                            "lname": obj.owner.trader_id.lname,
+                            "image": imageProfile
                     }
             },
             "basket": {"id": obj.basket.id, "owner": obj.basket.owner.id, "trade_id": obj.basket.trade_id.id, "deleted": obj.basket.deleted},
