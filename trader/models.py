@@ -11,6 +11,7 @@ ITEM_STATUS = (
     ('I', 'invisible'),
 )
 
+
 TRADE_STATUS = (
     ('O', 'open'),
     ('P','pending'),
@@ -73,6 +74,7 @@ class Item(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=100, blank=True, default='')
     status = models.CharField(choices=ITEM_STATUS, default='V', max_length=100)
+    isPicked = models.BooleanField(default=False)
     deleted = models.BooleanField(default=False)
 
     class Meta:

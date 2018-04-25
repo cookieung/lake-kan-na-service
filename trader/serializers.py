@@ -40,7 +40,7 @@ class InventorySerializer(serializers.ModelSerializer):
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ('id','created','name','status','deleted')
+        fields = ('id','created','name','status','isPicked','deleted')
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
