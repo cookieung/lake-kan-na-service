@@ -62,6 +62,7 @@ class BasketSerializer(serializers.ModelSerializer):
             "id": obj.id,
             "owner": {
                     "id": obj.owner.id,
+                    "username": obj.owner.username,
                     "trader_id": {
                             "id": obj.owner.trader_id.id,
                             "name": obj.owner.trader_id.name,
@@ -83,6 +84,7 @@ class TradingSerializer(serializers.ModelSerializer):
         else:
             receiver = {
                     "id": obj.receiver.id,
+                    "username": obj.receiver.username,
                     "trader_id": {
                             "id": obj.receiver.trader_id.id,
                             "name": obj.receiver.trader_id.name,
@@ -105,6 +107,7 @@ class TradingSerializer(serializers.ModelSerializer):
             "description": obj.description,
             "owner": {
                     "id": obj.owner.id,
+                    "username": obj.owner.username,
                     "trader_id": {
                             "id": obj.owner.trader_id.id,
                             "name": obj.owner.trader_id.name,
@@ -209,6 +212,7 @@ class MessageSerializer(serializers.ModelSerializer):
             "created": obj.created,
             "owner": {
                     "id": obj.owner.id,
+                    "username": obj.owner.username,
                     "trader_id": {
                             "id": obj.owner.trader_id.id,
                             "name": obj.owner.trader_id.name,
