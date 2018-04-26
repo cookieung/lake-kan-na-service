@@ -45,6 +45,7 @@ class TradingList(generics.ListCreateAPIView):
         receiver = self.request.query_params.get('receiver',None)
         tag = self.request.query_params.get('tag',None)
         status = self.request.query_params.get('status',None)
+        timeline = self.request.query_params.get('timeline',None)
         if user is not None:
             queryset = queryset.filter(Q(owner=user) | Q(receiver=user))
         if owner is not None:
@@ -55,6 +56,8 @@ class TradingList(generics.ListCreateAPIView):
             queryset = queryset.filter(tags=tag)
         if status is not None:
             queryset = queryset.filter(status=status)
+        if timeline is not None:
+            queryset = queryset.filter(status__in=['O','P'])
         return queryset
 
 class TradingDetail(generics.RetrieveUpdateDestroyAPIView):
