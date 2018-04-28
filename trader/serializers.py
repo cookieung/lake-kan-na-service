@@ -34,7 +34,7 @@ class UserSerializer(serializers.ModelSerializer):
 class InventorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Inventory
-        fields = ('id','owner','deleted')
+        fields = ('id','owner','updated','deleted')
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -56,7 +56,7 @@ class ImageSerializer(serializers.ModelSerializer):
 class BasketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Basket
-        fields = ('id','owner','trade_id', 'status', 'deleted')
+        fields = ('id','owner','trade_id', 'status', 'updated', 'deleted')
     def to_representation(self, obj):
         return {
             "id": obj.id,
@@ -71,13 +71,14 @@ class BasketSerializer(serializers.ModelSerializer):
             },
             "trade_id": obj.trade_id.id,
             "status": obj.status,
+            "updated": obj.updated,
             "deleted": obj.deleted
         }
 
 class TradingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trading
-        fields = ('id','executeDate','name','description','owner','receiver', 'status', 'image', 'deleted')
+        fields = ('id','executeDate','name','description','owner','receiver', 'status', 'image', 'updated', 'deleted')
     def to_representation(self, obj):
         if obj.receiver is None:
             receiver = None
@@ -118,13 +119,14 @@ class TradingSerializer(serializers.ModelSerializer):
             "receiver": receiver,
             "status": obj.status,
             "image": image,
+            "updated": obj.updated,
             "deleted": obj.deleted
         }
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ('id','comment','deleted')
+        fields = ('id','comment', 'updated','deleted')
 
 class ItemTagsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -146,7 +148,7 @@ class TradingTagsSerializer(serializers.ModelSerializer):
     def to_representation(self, obj):
         return {
             "id": obj.id,
-            "trading_id": {"id": obj.trading_id.id, "executeDate": obj.trading_id.executeDate, "name": obj.trading_id.name,"description": obj.trading_id.description,"owner": obj.trading_id.owner.id,"receiver": obj.trading_id.receiver.id, "deleted": obj.trading_id.deleted},
+            "trading_id": {"id": obj.trading_id.id, "executeDate": obj.trading_id.executeDate, "name": obj.trading_id.name,"description": obj.trading_id.description,"owner": obj.trading_id.owner.id,"receiver": obj.trading_id.receiver.id, "updated": obj.trading_id.updated, "deleted": obj.trading_id.deleted},
             "tags": {"id": obj.tags.id, "name": obj.tags.name, "deleted": obj.tags.deleted},
             "deleted": obj.deleted
         }
@@ -154,24 +156,26 @@ class TradingTagsSerializer(serializers.ModelSerializer):
 class ItemOfBasketSerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemOfBasket
-        fields = ('id','basket_id','items','deleted')
+        fields = ('id','basket_id','items','updated','deleted')
     def to_representation(self, obj):
         return {
             "id": obj.id,
-            "basket_id": {"id": obj.basket_id.id, "owner": obj.basket_id.owner.id, "trade_id": obj.basket_id.trade_id.id, "deleted": obj.basket_id.deleted},
+            "basket_id": {"id": obj.basket_id.id, "owner": obj.basket_id.owner.id, "trade_id": obj.basket_id.trade_id.id, "updated": obj.basket_id.updated,"deleted": obj.basket_id.deleted},
             "items": {"id": obj.items.id,"created": obj.items.created,"name": obj.items.name,"status": obj.items.status,"deleted": obj.items.deleted} ,
+            "updated": obj.updated,
             "deleted": obj.deleted
         }
 
 class ItemOfInventorySerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemOfInventory
-        fields = ('id','inventory_id','items','deleted')
+        fields = ('id','inventory_id','items','updated','deleted')
     def to_representation(self, obj):
         return {
             "id": obj.id,
-            "inventory_id": {"id": obj.inventory_id.id, "owner": obj.inventory_id.owner.id, "deleted": obj.inventory_id.deleted},
+            "inventory_id": {"id": obj.inventory_id.id, "owner": obj.inventory_id.owner.id, "updated": obj.inventory_id.updated, "deleted": obj.inventory_id.deleted},
             "items": {"id": obj.items.id,"created": obj.items.created,"name": obj.items.name,"status": obj.items.status,"deleted": obj.items.deleted} ,
+            "updated": obj.updated,
             "deleted": obj.deleted
         }
 
@@ -195,13 +199,13 @@ class ReviewLogSerializer(serializers.ModelSerializer):
 class VotingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Voting
-        fields = ('id','receiver','voter','rate','deleted')
+        fields = ('id','receiver','voter','rate','updated','deleted')
 
 
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
-        fields = ('id', 'owner', 'basket', 'detail','deleted')
+        fields = ('id', 'owner', 'basket', 'detail','updated','deleted')
     def to_representation(self, obj):
         if obj.owner.trader_id.image is None:
             imageProfile = None
@@ -220,7 +224,8 @@ class MessageSerializer(serializers.ModelSerializer):
                             "image": imageProfile
                     }
             },
-            "basket": {"id": obj.basket.id, "owner": obj.basket.owner.id, "trade_id": obj.basket.trade_id.id, "deleted": obj.basket.deleted},
+            "basket": {"id": obj.basket.id, "owner": obj.basket.owner.id, "trade_id": obj.basket.trade_id.id,"updated": obj.basket_id.updated, "deleted": obj.basket.deleted},
             "detail": obj.detail,
+            "updated": obj.updated,
             "deleted": obj.deleted
         }

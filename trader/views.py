@@ -143,8 +143,11 @@ class ItemList(generics.ListCreateAPIView):
     def get_queryset(self):
         queryset = Item.objects.all()
         status = self.request.query_params.get('status',None)
+        picked = self.request.query_params.get('picked',None)
         if status is not None:
             queryset = queryset.filter(status=status)
+        if picked is not None:
+            queryset = queryset.filter(isPicked=picked)
         return queryset.order_by('-created')
 
 class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -218,6 +221,8 @@ class ItemOfBasketList(generics.ListCreateAPIView):
         for list_elt in request.data:
             basket = Basket.objects.get(pk=list_elt.get('basket_id'))
             items = Item.objects.get(pk=list_elt.get('items'))
+            items.isPicked = True
+            items.save()
             if not ItemOfBasket.objects.filter(basket_id=list_elt.get('basket_id')).filter(items=list_elt.get('items')).exists() :
                 item_obj = ItemOfBasket.objects.create(basket_id=basket, items=items)
                 itemBasket_created.append(item_obj.id)

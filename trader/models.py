@@ -59,6 +59,7 @@ class User(models.Model):
 class Inventory(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User,on_delete=models.CASCADE,)
+    updated = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
 
     class Meta:
@@ -99,6 +100,7 @@ class Trading(models.Model):
     executeDate = models.DateTimeField(auto_now_add=False)
     status = models.CharField(choices=TRADE_STATUS, default='O', max_length=100)
     image = models.ForeignKey(Image,on_delete=models.CASCADE,blank=True, null=True)
+    updated = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
 
     class Meta:
@@ -118,6 +120,7 @@ class Basket(models.Model):
     owner = models.ForeignKey(User,on_delete=models.CASCADE,)
     trade_id = models.ForeignKey(Trading,on_delete=models.CASCADE,)
     status = models.CharField(choices=BASKET_STATUS, default='R', max_length=100)
+    updated = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
 
     class Meta:
@@ -127,6 +130,7 @@ class ItemOfBasket(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     basket_id = models.ForeignKey(Basket,on_delete=models.CASCADE,)
     items = models.ForeignKey(Item,on_delete=models.CASCADE,)
+    updated = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
 
     class Meta:
@@ -136,6 +140,7 @@ class ItemOfInventory(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     inventory_id = models.ForeignKey(Inventory,on_delete=models.CASCADE,)
     items = models.ForeignKey(Item,on_delete=models.CASCADE,)
+    updated = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
 
     class Meta:
@@ -154,6 +159,7 @@ class ImageOfItem(models.Model):
 class Review(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     comment = models.CharField(max_length=100, blank=True, default='')
+    updated = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
 
     class Meta:
@@ -174,6 +180,7 @@ class Voting(models.Model):
     receiver = models.ForeignKey(User,on_delete=models.CASCADE,related_name='vote')
     voter = models.ForeignKey(User,on_delete=models.CASCADE,related_name='voted')
     rate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    updated = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
 
     class Meta:
@@ -185,6 +192,7 @@ class Message(models.Model):
     owner = models.ForeignKey(User,on_delete=models.CASCADE,)
     basket = models.ForeignKey(Basket,on_delete=models.CASCADE,)
     detail = models.CharField(max_length=200, blank=True, default='')
+    updated = models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
 
     class Meta:
