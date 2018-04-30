@@ -224,7 +224,7 @@ class MessageSerializer(serializers.ModelSerializer):
                             "image": imageProfile
                     }
             },
-            "basket": {"id": obj.basket.id, "owner": obj.basket.owner.id, "trade_id": obj.basket.trade_id.id,"updated": obj.basket_id.updated, "deleted": obj.basket.deleted},
+            "basket": {"id": obj.basket.id, "owner": obj.basket.owner.id, "trade_id": obj.basket.trade_id.id,"updated": obj.basket.updated, "deleted": obj.basket.deleted},
             "detail": obj.detail,
             "updated": obj.updated,
             "deleted": obj.deleted
