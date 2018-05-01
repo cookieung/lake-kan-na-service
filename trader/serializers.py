@@ -186,7 +186,7 @@ class ImageOfItemSerializer(serializers.ModelSerializer):
     def to_representation(self, obj):
         return {
             "id": obj.id,
-            "item_id": {"id": obj.item_id.id,"created": obj.item_id.created,"name": obj.item_id.name,"status": obj.item_id.status,"isPicked": obj.items.isPicked,"deleted": obj.item_id.deleted} ,
+            "item_id": {"id": obj.item_id.id,"created": obj.item_id.created,"name": obj.item_id.name,"status": obj.item_id.status,"isPicked": obj.item_id.isPicked,"deleted": obj.item_id.deleted} ,
             "images": {"id": obj.images.id, "url": obj.images.url, "deleted": obj.images.deleted},
             "deleted": obj.deleted
         }
