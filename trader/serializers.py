@@ -135,7 +135,7 @@ class ItemTagsSerializer(serializers.ModelSerializer):
     def to_representation(self, obj):
         return {
             "id": obj.id,
-            "item_id": {"id": obj.item_id.id,"created": obj.item_id.created,"name": obj.item_id.name,"status": obj.item_id.status,"deleted": obj.item_id.deleted} ,
+            "item_id": {"id": obj.item_id.id,"created": obj.item_id.created,"name": obj.item_id.name,"status": obj.item_id.status,"isPicked": obj.item_id.isPicked,"deleted": obj.item_id.deleted} ,
             "tags": {"id": obj.tags.id, "name": obj.tags.name, "deleted": obj.tags.deleted},
             "deleted": obj.deleted
         }
@@ -161,7 +161,7 @@ class ItemOfBasketSerializer(serializers.ModelSerializer):
         return {
             "id": obj.id,
             "basket_id": {"id": obj.basket_id.id, "owner": obj.basket_id.owner.id, "trade_id": obj.basket_id.trade_id.id, "updated": obj.basket_id.updated,"deleted": obj.basket_id.deleted},
-            "items": {"id": obj.items.id,"created": obj.items.created,"name": obj.items.name,"status": obj.items.status,"deleted": obj.items.deleted} ,
+            "items": {"id": obj.items.id,"created": obj.items.created,"name": obj.items.name,"status": obj.items.status,"isPicked": obj.items.isPicked,"deleted": obj.items.deleted} ,
             "updated": obj.updated,
             "deleted": obj.deleted
         }
@@ -174,7 +174,7 @@ class ItemOfInventorySerializer(serializers.ModelSerializer):
         return {
             "id": obj.id,
             "inventory_id": {"id": obj.inventory_id.id, "owner": obj.inventory_id.owner.id, "updated": obj.inventory_id.updated, "deleted": obj.inventory_id.deleted},
-            "items": {"id": obj.items.id,"created": obj.items.created,"name": obj.items.name,"status": obj.items.status,"deleted": obj.items.deleted} ,
+            "items": {"id": obj.items.id,"created": obj.items.created,"name": obj.items.name,"status": obj.items.status,"isPicked": obj.items.isPicked,"deleted": obj.items.deleted} ,
             "updated": obj.updated,
             "deleted": obj.deleted
         }
@@ -186,7 +186,7 @@ class ImageOfItemSerializer(serializers.ModelSerializer):
     def to_representation(self, obj):
         return {
             "id": obj.id,
-            "item_id": {"id": obj.item_id.id,"created": obj.item_id.created,"name": obj.item_id.name,"status": obj.item_id.status,"deleted": obj.item_id.deleted} ,
+            "item_id": {"id": obj.item_id.id,"created": obj.item_id.created,"name": obj.item_id.name,"status": obj.item_id.status,"isPicked": obj.items.isPicked,"deleted": obj.item_id.deleted} ,
             "images": {"id": obj.images.id, "url": obj.images.url, "deleted": obj.images.deleted},
             "deleted": obj.deleted
         }
