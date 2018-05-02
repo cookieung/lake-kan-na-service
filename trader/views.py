@@ -194,8 +194,11 @@ class ItemOfInventoryList(generics.ListCreateAPIView):
     def get_queryset(self):
         queryset = ItemOfInventory.objects.all()
         inventory = self.request.query_params.get('inventory',None)
+        status = self.request.query_params.get('status',None)
         if inventory is not None:
             queryset = queryset.filter(inventory_id=inventory)
+        if status is not None:
+            queryset = queryset.filter(status=status)
         return queryset.order_by('-created')
 
 
@@ -222,6 +225,7 @@ class ItemOfBasketList(generics.ListCreateAPIView):
             basket = Basket.objects.get(pk=list_elt.get('basket_id'))
             items = Item.objects.get(pk=list_elt.get('items'))
             items.isPicked = True
+            items.status = 'I'
             items.save()
             if not ItemOfBasket.objects.filter(basket_id=list_elt.get('basket_id')).filter(items=list_elt.get('items')).exists() :
                 item_obj = ItemOfBasket.objects.create(basket_id=basket, items=items)
